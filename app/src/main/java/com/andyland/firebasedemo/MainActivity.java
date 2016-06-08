@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,6 +18,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
+//        generateCrash();
+    }
+
+    /**
+     * To generate ArithmeticException : divide by zero
+     * Note : It will take around 20 minutes to display same exception on Firebase crash dashboard.
+     * (I have fired this exception on 11:38am and got report at 11:48am.)
+     */
+    public void generateCrash() {
+        // We have added below code to generate ArithmeticException and report this crash on Firebase Crash Reporting.
+        int a = 10 / 0;
+    }
+
+    private void createCustomLog(String message) {
+        FirebaseCrash.log(message);
     }
 
     /**
@@ -25,10 +42,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            int a = 10 / 0;
         } catch (Exception e) {
             e.printStackTrace();
+            createCustomLog("Error while adding toolbar");
         }
     }
+
 
     /**
      * Attempts to initialize all resources here.
