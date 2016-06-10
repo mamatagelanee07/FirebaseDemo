@@ -17,8 +17,15 @@ public class FragmentLoader {
     private static final String TAG = FragmentLoader.class.getSimpleName();
     private FragmentManager fragmentManager;
     private String currentFragment;
+    private static FragmentLoader fragmentLoader;
 
-    public FragmentLoader(FireBaseActivity coreActivity) {
+    public static FragmentLoader newInstance(FireBaseActivity coreActivity) {
+        if (fragmentLoader == null)
+            fragmentLoader = new FragmentLoader(coreActivity);
+        return fragmentLoader;
+    }
+
+    FragmentLoader(FireBaseActivity coreActivity) {
         this.fragmentManager = coreActivity.getSupportFragmentManager();
     }
 
