@@ -51,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
      */
     private void addToolbar() {
         try {
-//            toolbar.setTitle(getString(R.string.app_name));
             setSupportActionBar(toolbar);
-//            if (getSupportActionBar() != null)
-//                getSupportActionBar().setTitle(getString(R.string.app_name));
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayUseLogoEnabled(true);
+                getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
