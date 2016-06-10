@@ -1,4 +1,4 @@
-package com.andyland.firebasedemo;
+package com.andyland.firebasedemo.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class FirebaseActivity extends AppCompatActivity
+import com.andyland.firebasedemo.R;
+import com.andyland.firebasedemo.common.util.FragmentLoader;
+
+public class FireBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -40,6 +43,9 @@ public class FirebaseActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentLoader fragmentLoader = new FragmentLoader(FireBaseActivity.this);
+        fragmentLoader.loadCrashReportFragment(FireBaseActivity.this);
     }
 
     @Override
