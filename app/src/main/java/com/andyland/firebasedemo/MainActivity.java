@@ -7,18 +7,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.crash.FirebaseCrash;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.btn_generate_crash)
+    Button btnGenerateCrash;
+    @BindView(R.id.fab)
+    FloatingActionButton floatingActionButton;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
-//        generateCrash();
     }
 
     /**
@@ -26,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
      * Note : It will take around 20 minutes to display same exception on Firebase crash dashboard.
      * (I have fired this exception on 11:38am and got report at 11:48am.)
      */
+    @OnClick(R.id.btn_generate_crash)
     public void generateCrash() {
         // We have added below code to generate ArithmeticException and report this crash on Firebase Crash Reporting.
         int a = 10 / 0;
@@ -40,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void addToolbar() {
         try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//            toolbar.setTitle(getString(R.string.app_name));
             setSupportActionBar(toolbar);
-            int a = 10 / 0;
+//            if (getSupportActionBar() != null)
+//                getSupportActionBar().setTitle(getString(R.string.app_name));
         } catch (Exception e) {
             e.printStackTrace();
-            createCustomLog("Error while adding toolbar");
         }
     }
 
@@ -55,22 +66,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initUI() {
         try {
-
+            ButterKnife.bind(this);
             addToolbar();
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-            if (fab != null) {
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                });
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @OnClick(R.id.fab)
+    public void onFABClicked() {
+        Snackbar.make(floatingActionButton, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     @Override
