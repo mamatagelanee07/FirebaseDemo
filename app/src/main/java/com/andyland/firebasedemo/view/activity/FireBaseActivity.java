@@ -61,7 +61,7 @@ public class FireBaseActivity extends AppCompatActivity
 
     private void loadDefaultFragment() {
         FragmentLoader fragmentLoader = FragmentLoader.newInstance(FireBaseActivity.this);
-        fragmentLoader.loadCrashReportFragment(FireBaseActivity.this);
+        fragmentLoader.loadCrashReportFragment();
     }
 
     /**
@@ -112,6 +112,10 @@ public class FireBaseActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_crash:
+                FragmentLoader.newInstance(FireBaseActivity.this).loadCrashReportFragment();
+                break;
+            case R.id.nav_database:
+                FragmentLoader.newInstance(FireBaseActivity.this).loadFeedbackFragment();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

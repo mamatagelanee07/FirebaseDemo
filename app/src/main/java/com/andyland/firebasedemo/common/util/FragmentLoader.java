@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.view.activity.FireBaseActivity;
 import com.andyland.firebasedemo.view.fragment.CrashReportFragment;
+import com.andyland.firebasedemo.view.fragment.FeedbackFragment;
 
 /**
  * Created by Andy on 10/16/2015.
@@ -18,6 +19,7 @@ public class FragmentLoader {
     private FragmentManager fragmentManager;
     private String currentFragment;
     private static FragmentLoader fragmentLoader;
+    private FireBaseActivity fireBaseActivity;
 
     public static FragmentLoader newInstance(FireBaseActivity coreActivity) {
         if (fragmentLoader == null)
@@ -27,13 +29,17 @@ public class FragmentLoader {
 
     FragmentLoader(FireBaseActivity coreActivity) {
         this.fragmentManager = coreActivity.getSupportFragmentManager();
+        this.fireBaseActivity = coreActivity;
     }
 
     public String getCurrentFragment() {
         return currentFragment;
     }
 
-    public void loadCrashReportFragment(Activity activity) {
+    /**
+     * Attempts to load CrashFragment
+     */
+    public void loadCrashReportFragment() {
         try {
 
             boolean fragmentPopped = fragmentManager.popBackStackImmediate(Constants.TAG_FRAGMENT_CRASH_REPORT, 0);
@@ -43,7 +49,7 @@ public class FragmentLoader {
             }
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            CrashReportFragment crashReportFragment = CrashReportFragment.newInstance(activity);
+            CrashReportFragment crashReportFragment = CrashReportFragment.newInstance(fireBaseActivity);
             fragmentTransaction.addToBackStack(Constants.TAG_FRAGMENT_CRASH_REPORT);
             this.currentFragment = Constants.TAG_FRAGMENT_CRASH_REPORT;
             fragmentTransaction.replace(R.id.content_frame, crashReportFragment, Constants.TAG_FRAGMENT_CRASH_REPORT).commit();
@@ -52,6 +58,28 @@ public class FragmentLoader {
         }
     }
 
+
+    /**
+     * Attempts to load FeedbackFragment
+     */
+    public void loadFeedbackFragment() {
+        try {
+
+            boolean fragmentPopped = fragmentManager.popBackStackImmediate(Constants.TAG_FRAGMENT_FEEDBACK, 0);
+            boolean isAddable = !fragmentPopped && fragmentManager.findFragmentByTag(Constants.TAG_FRAGMENT_FEEDBACK) == null;
+            if (!isAddable) {
+                fragmentManager.popBackStack(Constants.TAG_FRAGMENT_FEEDBACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FeedbackFragment feedbackFragment = FeedbackFragment.newInstance(fireBaseActivity);
+            fragmentTransaction.addToBackStack(Constants.TAG_FRAGMENT_FEEDBACK);
+            this.currentFragment = Constants.TAG_FRAGMENT_FEEDBACK;
+            fragmentTransaction.replace(R.id.content_frame, feedbackFragment, Constants.TAG_FRAGMENT_FEEDBACK).commit();
+
+        } catch (Exception e) {
+        }
+    }
 
     /**
      * Method to main back stack of fragments when only 'Home' or 'Start' fragment should be there
