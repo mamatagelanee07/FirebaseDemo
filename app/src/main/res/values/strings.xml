@@ -4,4 +4,18 @@
 
 
     <string name="btn_lbl_generate_crash">Generate Crash</string>
+    <string name="title_activity_firebase">FirebaseActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--navigation drawer items-->
+    <string name="lbl_nav_development">Develop</string>
+    <string name="lbl_nav_crash">Crash</string>
+    <string name="lbl_nav_database">Database</string>
+    <string name="lbl_nav_auth">Authentication</string>
+    <string name="lbl_nav_grow">Grow</string>
+    <string name="lbl_nav_notification">Notification</string>
+    <string name="lbl_nav_earn">Earn</string>
+    <string name="lbl_nav_ad_mob">Ad Mob</string>
 </resources>

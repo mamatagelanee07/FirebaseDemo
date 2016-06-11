@@ -1,4 +1,4 @@
-package com.andyland.firebasedemo;
+package com.andyland.firebasedemo.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.andyland.firebasedemo.R;
 import com.google.firebase.crash.FirebaseCrash;
 
 import butterknife.BindView;

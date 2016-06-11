@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/lbl_nav_development">
+        <menu>
+            <item
+                android:id="@+id/nav_crash"
+                android:icon="@drawable/ic_menu_crash"
+                android:title="@string/lbl_nav_crash" />
+            <item
+                android:id="@+id/nav_database"
+                android:icon="@drawable/ic_menu_database"
+                android:title="@string/lbl_nav_database" />
+            <item
+                android:id="@+id/nav_auth"
+                android:icon="@drawable/ic_menu_auth"
+                android:title="@string/lbl_nav_auth" />
+        </menu>
+    </item>
+
+    <item android:title="@string/lbl_nav_grow">
+        <menu>
+            <item
+                android:id="@+id/nav_notification"
+                android:icon="@drawable/ic_menu_notification"
+                android:title="@string/lbl_nav_notification" />
+        </menu>
+    </item>
+
+    <item android:title="@string/lbl_nav_earn">
+        <menu>
+            <item
+                android:id="@+id/nav_earn"
+                android:icon="@drawable/ic_menu_earn"
+                android:title="@string/lbl_nav_ad_mob" />
+        </menu>
+    </item>
+
+</menu>
