@@ -11,6 +11,8 @@ import android.view.WindowManager;
 
 import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.common.util.Logger;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.ButterKnife;
 
@@ -56,6 +58,12 @@ public class FeedbackFragment extends Fragment {
         try {
             if (mActivity != null && rootView != null) {
                 ButterKnife.bind(this, rootView);
+
+                // Write a message to the database
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("message");
+
+                myRef.setValue("Hello, World!");
             }
         } catch (Exception e) {
             e.printStackTrace();
