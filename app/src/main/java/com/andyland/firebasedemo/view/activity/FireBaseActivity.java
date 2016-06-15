@@ -1,9 +1,7 @@
 package com.andyland.firebasedemo.view.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,14 +15,11 @@ import com.andyland.firebasedemo.common.util.FragmentLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class FireBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     @BindView(R.id.nav_view)
@@ -62,15 +57,6 @@ public class FireBaseActivity extends AppCompatActivity
     private void loadDefaultFragment() {
         FragmentLoader fragmentLoader = FragmentLoader.newInstance(FireBaseActivity.this);
         fragmentLoader.loadCrashReportFragment();
-    }
-
-    /**
-     * Attempts to perform action when FAB clicked
-     */
-    @OnClick(R.id.fab)
-    public void onFABClicked() {
-        Snackbar.make(fab, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 
 
