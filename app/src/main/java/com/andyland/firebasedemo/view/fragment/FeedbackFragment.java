@@ -38,8 +38,8 @@ public class FeedbackFragment extends Fragment {
     EditText edtEmail;
     @BindView(R.id.input_contact)
     EditText edtContact;
-    @BindView(R.id.input_comment)
-    EditText edtComment;
+    //    @BindView(R.id.input_comment)
+//    EditText edtComment;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
 
@@ -102,6 +102,6 @@ public class FeedbackFragment extends Fragment {
         fontLoader.setTypeFace(edtName, Constants.FONT_SANSATION_LIGHT);
         fontLoader.setTypeFace(edtEmail, Constants.FONT_SANSATION_LIGHT);
         fontLoader.setTypeFace(edtContact, Constants.FONT_SANSATION_LIGHT);
-        fontLoader.setTypeFace(edtComment, Constants.FONT_SANSATION_LIGHT);
+//        fontLoader.setTypeFace(edtComment, Constants.FONT_SANSATION_LIGHT);
     }
 }

@@ -16,6 +16,7 @@ import com.andyland.firebasedemo.common.util.FragmentLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+// TODO: Add non-fatal logging to app
 public class FireBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)

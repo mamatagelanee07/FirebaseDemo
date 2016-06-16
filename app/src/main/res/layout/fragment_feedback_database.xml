@@ -70,31 +70,55 @@
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
-        <!--Comment input filed-->
-        <android.support.design.widget.TextInputLayout
+        <!--  &lt;!&ndash;Comment input filed&ndash;&gt;
+          <android.support.design.widget.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp">
+
+              <EditText
+                  android:id="@+id/input_comment"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:ems="10"
+                  android:hint="Comment"
+                  android:inputType="textMultiLine"
+                  android:lines="4"
+                  android:minLines="1"
+                  android:scrollbarStyle="outsideInset"
+                  android:scrollbars="vertical"
+                  android:singleLine="false" />
+          </android.support.design.widget.TextInputLayout>-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="15dp"
+            android:padding="3dp">
 
-            <EditText
-                android:id="@+id/input_comment"
+            <TextView
+                android:id="@+id/title_txt_rating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Comment"
-                android:inputType="textMultiLine"
-                android:lines="4"
-                android:minLines="1"
-                android:scrollbarStyle="outsideInset"
-                android:scrollbars="vertical"
-                android:singleLine="false" />
-        </android.support.design.widget.TextInputLayout>
+                android:text="@string/title_txt_rating"
+                android:textSize="@dimen/title_txt_rating" />
+
+            <RatingBar
+                android:id="@+id/rate_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_txt_rating"
+                android:layout_marginTop="8dp"
+                android:numStars="5"
+                android:progressDrawable="@drawable/selector_rating_bar"
+                android:rating="3.5"
+                android:stepSize="0.5" />
+        </RelativeLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:padding="12dp"

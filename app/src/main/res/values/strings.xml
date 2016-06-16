@@ -5,6 +5,7 @@
 
     <string name="btn_lbl_generate_crash">Generate Crash</string>
     <string name="title_activity_firebase">FirebaseActivity</string>
+    <string name="title_txt_rating">How do you rate this demo?</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
