@@ -19,4 +19,7 @@
     <string name="lbl_nav_notification">Notification</string>
     <string name="lbl_nav_earn">Earn</string>
     <string name="lbl_nav_ad_mob">Ad Mob</string>
+
+    <!--Error messages-->
+    <string name="err_fill_field">Hey, You need to fill me..!</string>
 </resources>

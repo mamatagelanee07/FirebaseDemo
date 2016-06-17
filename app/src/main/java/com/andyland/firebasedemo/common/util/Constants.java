@@ -20,4 +20,8 @@ public class Constants {
     public static final String FONT_SANSATION_LIGHT_ITALIC = "Sansation_LightItalic.ttf";
     public static final String FONT_SANSATION_REGULAR = "Sansation_Regular.ttf";
 
+    public static final String DEFAULT_STRING = "";
+    public static final int DEFAULT_INT = -1;
+    public static final float DEFAULT_FLOAT = -1.0f;
+
 }

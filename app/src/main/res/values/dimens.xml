@@ -8,5 +8,5 @@
     <dimen name="nav_header_height">160dp</dimen>
 
 
-    <dimen name="title_txt_rating">20sp</dimen>
+    <dimen name="title_txt_rating">18sp</dimen>
 </resources>
