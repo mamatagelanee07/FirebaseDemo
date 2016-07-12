@@ -5,6 +5,7 @@
 
     <string name="btn_lbl_generate_crash">Generate Crash</string>
     <string name="title_activity_firebase">FirebaseActivity</string>
+    <string name="title_txt_rating">How do you rate this demo?</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,4 +19,22 @@
     <string name="lbl_nav_notification">Notification</string>
     <string name="lbl_nav_earn">Earn</string>
     <string name="lbl_nav_ad_mob">Ad Mob</string>
+
+    <!--Error messages-->
+    <string name="err_fill_field">Hey, You need to fill me..!</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="lbl_sign_up">New user? Create an Account</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 </resources>
