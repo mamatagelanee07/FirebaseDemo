@@ -73,20 +73,20 @@
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimaryDark"
                 android:text="@string/action_sign_in"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:textSize="@dimen/title_txt_rating"
+                android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/txtSignUp"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
                 android:text="@string/lbl_sign_up"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>
