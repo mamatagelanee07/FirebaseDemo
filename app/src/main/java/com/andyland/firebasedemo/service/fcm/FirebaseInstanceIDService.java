@@ -6,13 +6,20 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 /**
- * Created by mamata.gelanee on 7/4/2016.
+ * Created by Andy
  */
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = FirebaseInstanceIDService.class.getSimpleName();
 
+    /**
+     * The registration token may change when:
+     * The app deletes Instance ID
+     * The app is restored on a new device
+     * The user uninstalls/reinstall the app
+     * The user clears app data.
+     */
     @Override
     public void onTokenRefresh() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
@@ -20,7 +27,11 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         sendRegistrationToServer(refreshedToken);
     }
 
+    /**
+     * Attempts to send FCM token to server
+     * @param token : An unique FCM token for device
+     */
     private void sendRegistrationToServer(String token) {
-        // save the token
+        // save the token or send it to server
     }
 }
