@@ -1,6 +1,5 @@
 package com.andyland.firebasedemo.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +12,10 @@ import android.widget.TextView;
 import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.common.util.Constants;
 import com.andyland.firebasedemo.common.util.FontLoader;
+import com.andyland.firebasedemo.service.authentication.FireBaseAuthHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edtContact;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FireBaseAuthHelper fireBaseAuthHelper;
 
 
     @Override
@@ -53,38 +50,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initFireBase() {
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Intent intent = new Intent(RegisterActivity.this, FireBaseActivity.class);
-                    startActivity(intent);
-                } else {
-                    // User is signed out
-                  /*  Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);*/
-                }
-            }
-        };
+        fireBaseAuthHelper = FireBaseAuthHelper.newInstance(RegisterActivity.this);
+        fireBaseAuthHelper.setActivity(RegisterActivity.this);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+        fireBaseAuthHelper.removeAuthListener();
     }
 
     private void uiInitialize() {
@@ -106,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
+        fireBaseAuthHelper.getFireBaseAuth().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

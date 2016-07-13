@@ -1,7 +1,6 @@
 package com.andyland.firebasedemo.common.util;
 
 
-import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -21,13 +20,13 @@ public class FragmentLoader {
     private static FragmentLoader fragmentLoader;
     private FireBaseActivity fireBaseActivity;
 
-    public static FragmentLoader newInstance(FireBaseActivity coreActivity) {
-        if (fragmentLoader == null)
-            fragmentLoader = new FragmentLoader(coreActivity);
-        return fragmentLoader;
-    }
-
-    FragmentLoader(FireBaseActivity coreActivity) {
+    /*  public static FragmentLoader newInstance(FireBaseActivity coreActivity) {
+          if (fragmentLoader == null)
+              fragmentLoader = new FragmentLoader(coreActivity);
+          return fragmentLoader;
+      }
+  */
+    public FragmentLoader(FireBaseActivity coreActivity) {
         this.fragmentManager = coreActivity.getSupportFragmentManager();
         this.fireBaseActivity = coreActivity;
     }

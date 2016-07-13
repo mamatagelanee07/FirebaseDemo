@@ -24,4 +24,7 @@ public class Constants {
     public static final int DEFAULT_INT = -1;
     public static final float DEFAULT_FLOAT = -1.0f;
 
+
+    public static final int SPLASH_SLEEP_TIME = 5000;
+
 }

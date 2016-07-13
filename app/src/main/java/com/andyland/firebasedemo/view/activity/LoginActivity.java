@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -30,6 +31,10 @@ import android.widget.TextView;
 import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.common.util.Constants;
 import com.andyland.firebasedemo.common.util.FontLoader;
+import com.andyland.firebasedemo.service.authentication.FireBaseAuthHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +50,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -75,13 +81,37 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     Button mEmailSignInButton;
     @BindView(R.id.txtSignUp)
     TextView txtSignUp;
+    private FireBaseAuthHelper fireBaseAuthHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        initFireBase();
         initUI();
+    }
+
+
+    private void initFireBase() {
+        fireBaseAuthHelper = FireBaseAuthHelper.newInstance(LoginActivity.this);
+        fireBaseAuthHelper.setActivity(LoginActivity.this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        fireBaseAuthHelper.removeAuthListener();
+    }
+
+    private void loginUser(String email, String password) {
+        fireBaseAuthHelper.getFireBaseAuth().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmailAndPassword:onComplete:" + task.isSuccessful());
+                    }
+                });
     }
 
     /**
@@ -128,7 +158,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (!mayRequestContacts()) {
             return;
         }
-
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -221,8 +250,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+          /*  mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);*/
+            loginUser(email, password);
         }
     }
 

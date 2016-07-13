@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FirebaseDemo</string>
     <string name="action_settings">Settings</string>
+    <string name="action_log_out">Sign out</string>
 
 
     <string name="btn_lbl_generate_crash">Generate Crash</string>
