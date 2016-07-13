@@ -27,7 +27,7 @@ public class FireBaseActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
     public FragmentLoader fragmentLoader;
-    private FireBaseAuthHelper fireBaseAuthHelper;
+    public FireBaseAuthHelper fireBaseAuthHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +123,9 @@ public class FireBaseActivity extends AppCompatActivity
                 break;
             case R.id.nav_database:
                 fragmentLoader.loadFeedbackFragment();
+                break;
+            case R.id.nav_profile:
+                fragmentLoader.loadProfileFragment();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

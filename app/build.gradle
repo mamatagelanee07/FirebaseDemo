@@ -37,6 +37,11 @@ dependencies {
 
     // Firebase authentication
     compile 'com.google.firebase:firebase-auth:9.0.0'
+
+    //Image loader
+    // https://mvnrepository.com/artifact/com.squareup.picasso/picasso
+    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
+
 }
 
 // Apply plug-in to app.
