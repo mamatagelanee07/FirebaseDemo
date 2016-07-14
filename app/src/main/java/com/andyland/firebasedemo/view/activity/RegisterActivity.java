@@ -50,10 +50,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initFireBase() {
-        fireBaseAuthHelper = FireBaseAuthHelper.newInstance(RegisterActivity.this);
+        fireBaseAuthHelper = new FireBaseAuthHelper(RegisterActivity.this);
         fireBaseAuthHelper.setActivity(RegisterActivity.this);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fireBaseAuthHelper.addAuthListener();
+    }
 
     @Override
     protected void onStop() {

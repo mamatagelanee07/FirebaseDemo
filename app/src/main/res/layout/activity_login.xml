@@ -73,8 +73,21 @@
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimaryDark"
                 android:text="@string/action_sign_in"
-                android:textSize="@dimen/title_txt_rating"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/title_txt_rating" />
+
+            <Button
+                android:id="@+id/google_sign_in_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_google_signin_light_normal"
+                android:text="@string/action_sign_in"
+                android:padding="-5dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/color_grey"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtSignUp"

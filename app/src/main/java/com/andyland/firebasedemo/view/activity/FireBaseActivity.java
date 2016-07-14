@@ -39,8 +39,20 @@ public class FireBaseActivity extends AppCompatActivity
     }
 
     private void initFireBase() {
-        fireBaseAuthHelper = FireBaseAuthHelper.newInstance(FireBaseActivity.this);
+        fireBaseAuthHelper = new FireBaseAuthHelper(FireBaseActivity.this);
         fireBaseAuthHelper.setActivity(FireBaseActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fireBaseAuthHelper.addAuthListener();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        fireBaseAuthHelper.removeAuthListener();
     }
 
     /**
@@ -109,7 +121,7 @@ public class FireBaseActivity extends AppCompatActivity
     }
 
     private void logoutUser() {
-        FireBaseAuthHelper.newInstance(FireBaseActivity.this).signOut();
+        fireBaseAuthHelper.signOut();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
