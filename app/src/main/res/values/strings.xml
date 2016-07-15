@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FirebaseDemo</string>
     <string name="action_settings">Settings</string>
+    <string name="action_log_out">Sign out</string>
 
 
     <string name="btn_lbl_generate_crash">Generate Crash</string>
@@ -19,6 +20,7 @@
     <string name="lbl_nav_notification">Notification</string>
     <string name="lbl_nav_earn">Earn</string>
     <string name="lbl_nav_ad_mob">Ad Mob</string>
+    <string name="lbl_nav_profile">My Profile</string>
 
     <!--Error messages-->
     <string name="err_fill_field">Hey, You need to fill me..!</string>
@@ -37,4 +39,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="google_client_id">481286872449-2fearsae1ukkaq05hv92g60a9bdl2dqa.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">274966019561755</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.andyland.firebasedemo.common.util;
 
 
-import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -9,6 +8,7 @@ import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.view.activity.FireBaseActivity;
 import com.andyland.firebasedemo.view.fragment.CrashReportFragment;
 import com.andyland.firebasedemo.view.fragment.FeedbackFragment;
+import com.andyland.firebasedemo.view.fragment.ProfileFragment;
 
 /**
  * Created by Andy on 10/16/2015.
@@ -21,13 +21,13 @@ public class FragmentLoader {
     private static FragmentLoader fragmentLoader;
     private FireBaseActivity fireBaseActivity;
 
-    public static FragmentLoader newInstance(FireBaseActivity coreActivity) {
-        if (fragmentLoader == null)
-            fragmentLoader = new FragmentLoader(coreActivity);
-        return fragmentLoader;
-    }
-
-    FragmentLoader(FireBaseActivity coreActivity) {
+    /*  public static FragmentLoader newInstance(FireBaseActivity coreActivity) {
+          if (fragmentLoader == null)
+              fragmentLoader = new FragmentLoader(coreActivity);
+          return fragmentLoader;
+      }
+  */
+    public FragmentLoader(FireBaseActivity coreActivity) {
         this.fragmentManager = coreActivity.getSupportFragmentManager();
         this.fireBaseActivity = coreActivity;
     }
@@ -76,6 +76,26 @@ public class FragmentLoader {
             fragmentTransaction.addToBackStack(Constants.TAG_FRAGMENT_FEEDBACK);
             this.currentFragment = Constants.TAG_FRAGMENT_FEEDBACK;
             fragmentTransaction.replace(R.id.content_frame, feedbackFragment, Constants.TAG_FRAGMENT_FEEDBACK).commit();
+
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * Attempts to load FeedbackFragment
+     */
+    public void loadProfileFragment() {
+        try {
+            boolean fragmentPopped = fragmentManager.popBackStackImmediate(Constants.TAG_FRAGMENT_PROFILE, 0);
+            boolean isAddable = !fragmentPopped && fragmentManager.findFragmentByTag(Constants.TAG_FRAGMENT_PROFILE) == null;
+            if (!isAddable) {
+                fragmentManager.popBackStack(Constants.TAG_FRAGMENT_PROFILE, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            ProfileFragment profileFragment = ProfileFragment.newInstance(fireBaseActivity);
+            fragmentTransaction.addToBackStack(Constants.TAG_FRAGMENT_PROFILE);
+            this.currentFragment = Constants.TAG_FRAGMENT_PROFILE;
+            fragmentTransaction.replace(R.id.content_frame, profileFragment, Constants.TAG_FRAGMENT_PROFILE).commit();
 
         } catch (Exception e) {
         }

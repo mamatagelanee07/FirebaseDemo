@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.common.util.FragmentLoader;
+import com.andyland.firebasedemo.service.authentication.FireBaseAuthHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,19 +27,39 @@ public class FireBaseActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
     public FragmentLoader fragmentLoader;
+    public FireBaseAuthHelper fireBaseAuthHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firebase);
         ButterKnife.bind(this);
+        initFireBase();
         initUI();
+    }
+
+    private void initFireBase() {
+        fireBaseAuthHelper = new FireBaseAuthHelper(FireBaseActivity.this);
+        fireBaseAuthHelper.setActivity(FireBaseActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fireBaseAuthHelper.addAuthListener();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        fireBaseAuthHelper.removeAuthListener();
     }
 
     /**
      * Attempts to initialize all activity resources
      */
     private void initUI() {
+        fragmentLoader = new FragmentLoader(FireBaseActivity.this);
         // set toolbar
         setSupportActionBar(toolbar);
 
@@ -56,17 +77,23 @@ public class FireBaseActivity extends AppCompatActivity
     }
 
     private void loadDefaultFragment() {
-        FragmentLoader fragmentLoader = FragmentLoader.newInstance(FireBaseActivity.this);
         fragmentLoader.loadCrashReportFragment();
     }
 
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        try {
+            int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else if (backStackEntryCount == 1) {
+                FireBaseActivity.this.finish();
+            } else {
+                super.onBackPressed();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -85,11 +112,16 @@ public class FireBaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sign_out) {
+            logoutUser();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logoutUser() {
+        fireBaseAuthHelper.signOut();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -99,10 +131,13 @@ public class FireBaseActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_crash:
-                FragmentLoader.newInstance(FireBaseActivity.this).loadCrashReportFragment();
+                fragmentLoader.loadCrashReportFragment();
                 break;
             case R.id.nav_database:
-                FragmentLoader.newInstance(FireBaseActivity.this).loadFeedbackFragment();
+                fragmentLoader.loadFeedbackFragment();
+                break;
+            case R.id.nav_profile:
+                fragmentLoader.loadProfileFragment();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
