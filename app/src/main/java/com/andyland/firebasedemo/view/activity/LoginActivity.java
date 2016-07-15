@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.common.util.Constants;
 import com.andyland.firebasedemo.common.util.FontLoader;
+import com.andyland.firebasedemo.service.authentication.FacebookSignInHelper;
 import com.andyland.firebasedemo.service.authentication.FireBaseAuthHelper;
 import com.andyland.firebasedemo.service.authentication.GoogleSignInHelper;
+import com.facebook.FacebookSdk;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,13 +52,17 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtSignUp;
     @BindView(R.id.google_sign_in_button)
     Button btnGoogleSignIn;
+    @BindView(R.id.btnFacebookLogin)
+    LoginButton btnFacebookLogin;
     private FireBaseAuthHelper fireBaseAuthHelper;
     private GoogleSignInHelper googleSignInHelper;
+    private FacebookSignInHelper facebookSignInHelper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         initFireBase();
@@ -66,6 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         fireBaseAuthHelper = new FireBaseAuthHelper(LoginActivity.this);
         fireBaseAuthHelper.setActivity(LoginActivity.this);
         googleSignInHelper = GoogleSignInHelper.newInstance(LoginActivity.this, fireBaseAuthHelper);
+        facebookSignInHelper = FacebookSignInHelper.newInstance(LoginActivity.this, fireBaseAuthHelper);
+        btnFacebookLogin.registerCallback(facebookSignInHelper.getCallbackManager(),
+                facebookSignInHelper.getLoginCallback());
     }
 
     // [START onactivityresult]
@@ -73,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        facebookSignInHelper.getCallbackManager().onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GoogleSignInHelper.RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);

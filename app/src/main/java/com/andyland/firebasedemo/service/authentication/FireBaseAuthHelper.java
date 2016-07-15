@@ -9,6 +9,7 @@ import android.util.Log;
 import com.andyland.firebasedemo.view.activity.FireBaseActivity;
 import com.andyland.firebasedemo.view.activity.LoginActivity;
 import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -84,6 +85,9 @@ public class FireBaseAuthHelper {
                         break;
                     case EmailAuthProvider.PROVIDER_ID:
                         firebaseAuth.signOut();
+                        break;
+                    case FacebookAuthProvider.PROVIDER_ID:
+                        FacebookSignInHelper.newInstance(mActivity, this).signOut();
                         break;
                 }
             }
