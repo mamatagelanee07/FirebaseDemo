@@ -64,6 +64,7 @@ public class SplashActivity extends AppCompatActivity {
         public void run() {
             navigateUser();
             SplashActivity.this.finish();
+
         }
     };
 
@@ -75,4 +76,5 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
         }
     }
+
 }

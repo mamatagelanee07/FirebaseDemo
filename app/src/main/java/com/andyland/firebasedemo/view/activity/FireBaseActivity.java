@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import com.andyland.firebasedemo.R;
 import com.andyland.firebasedemo.common.util.FragmentLoader;
 import com.andyland.firebasedemo.service.authentication.FireBaseAuthHelper;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,6 +77,18 @@ public class FireBaseActivity extends AppCompatActivity
 
         // load default fragment when activity just created
         loadDefaultFragment();
+
+        loadAds();
+    }
+
+    private void loadAds() {
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_unit_id));
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice("61306FA5193E00EDD5416BB015008BAF")  // An example device ID
+                .build();
+        mAdView.loadAd(request);
     }
 
     private void loadDefaultFragment() {
