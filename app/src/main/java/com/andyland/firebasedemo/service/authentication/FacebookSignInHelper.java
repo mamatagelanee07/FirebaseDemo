@@ -37,7 +37,7 @@ public class FacebookSignInHelper {
     private static FacebookSignInHelper facebookSignInHelper = null;
     private CallbackManager callbackManager;
     private Activity mActivity;
-    private static final Collection<String> PERMISSION_LOGIN = (Collection<String>) Arrays.asList("public_profile", "user_friends");
+    private static final Collection<String> PERMISSION_LOGIN = (Collection<String>) Arrays.asList("public_profile", "user_friends","email");
     private FacebookCallback<LoginResult> loginCallback;
     private FireBaseAuthHelper fireBaseAuthHelper;
 
@@ -79,7 +79,7 @@ public class FacebookSignInHelper {
     }
 
     /**
-     * To login user on facebook
+     * To login user on facebook without default Facebook button
      */
     public void loginUser() {
         try {

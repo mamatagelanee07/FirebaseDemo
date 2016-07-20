@@ -41,4 +41,6 @@
     </string>
     <string name="google_client_id">481286872449-2fearsae1ukkaq05hv92g60a9bdl2dqa.apps.googleusercontent.com</string>
     <string name="facebook_app_id">274966019561755</string>
+    <!--This is ad unit Id, not an App ID -->
+    <string name="banner_ad_unit_id">ca-app-pub-4773654323893067/2082654637</string>
 </resources>
