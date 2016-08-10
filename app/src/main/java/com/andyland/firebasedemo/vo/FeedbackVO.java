@@ -1,15 +1,28 @@
 package com.andyland.firebasedemo.vo;
 
 import com.andyland.firebasedemo.common.util.Constants;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
  * Created by mamata.gelanee on 6/17/2016.
  */
+@IgnoreExtraProperties
 public class FeedbackVO {
     private String username = Constants.DEFAULT_STRING;
     private String userEmail = Constants.DEFAULT_STRING;
     private String userContact = Constants.DEFAULT_STRING;
     private float rating = Constants.DEFAULT_FLOAT;
+
+    public FeedbackVO() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public FeedbackVO(String username, String userEmail, String userContact, float rating) {
+        this.username = username;
+        this.userEmail = userEmail;
+        this.userContact = userContact;
+        this.rating = rating;
+    }
 
     public String getUsername() {
         return username;

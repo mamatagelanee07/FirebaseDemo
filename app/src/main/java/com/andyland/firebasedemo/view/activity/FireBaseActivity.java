@@ -1,12 +1,14 @@
 package com.andyland.firebasedemo.view.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,6 +18,11 @@ import com.andyland.firebasedemo.service.authentication.FireBaseAuthHelper;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +30,7 @@ import butterknife.ButterKnife;
 // TODO: Add non-fatal logging to app
 public class FireBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = FireBaseActivity.class.getSimpleName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawer_layout)
@@ -82,13 +90,49 @@ public class FireBaseActivity extends AppCompatActivity
     }
 
     private void loadAds() {
-        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_unit_id));
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice("61306FA5193E00EDD5416BB015008BAF")  // An example device ID
-                .build();
-        mAdView.loadAd(request);
+        final FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        // Define Firebase Remote Config Settings.
+        FirebaseRemoteConfigSettings firebaseRemoteConfigSettings =
+                new FirebaseRemoteConfigSettings.Builder()
+                        .setDeveloperModeEnabled(true)
+                        .build();
+
+        // Apply config settings and default values.
+        mFirebaseRemoteConfig.setConfigSettings(firebaseRemoteConfigSettings);
+        mFirebaseRemoteConfig.setDefaults(R.xml.default_config);
+
+        mFirebaseRemoteConfig.fetch(43200)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Fetch Succeeded");
+                            // Once the config is successfully fetched it must be activated before newly fetched
+                            // values are returned.
+                            mFirebaseRemoteConfig.activateFetched();
+                            boolean isEnableAds = mFirebaseRemoteConfig.getBoolean("is_enable_ad");
+                            if (isEnableAds) {
+                                MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_unit_id));
+
+                                AdView mAdView = (AdView) findViewById(R.id.adView);
+                                AdRequest request = new AdRequest.Builder()
+                                        .addTestDevice("61306FA5193E00EDD5416BB015008BAF")  // An example device ID
+                                        .build();
+                                mAdView.loadAd(request);
+                            }
+                        } else {
+                            Log.d(TAG, "Fetch failed");
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
+                Log.d(TAG, "Fetch failed" + e.getMessage());
+            }
+        });
     }
 
     private void loadDefaultFragment() {

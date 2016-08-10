@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Created by SPEC INDIA
+ * Created by Mamata Gelanee
  * An utility for Facebook
  */
 public class FacebookSignInHelper {
